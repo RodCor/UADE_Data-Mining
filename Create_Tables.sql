@@ -22,6 +22,7 @@ create table lk_dia (
 	dia_semana varchar(50)
 )
 
+
 create table lk_proveedor (
 	prov_id int not null primary key identity(1,1),
 	nombre_comp nvarchar(255),
@@ -42,7 +43,7 @@ create table lk_cliente (
 
 create table lk_categoria (
 	categ_id int not null primary key identity(1,1),
-	nombre nvarchar(255),
+	nombre varchar(255),
 	descripcion nvarchar(max),
 	imagen nvarchar(max)
 )
@@ -54,25 +55,39 @@ create table lk_producto (
 	precio_unidad decimal(15,2),
 	nivel_nuevo_pedido int,
 	suspendido bit default(0),
-	existencias int, --SACAR DE ACA
-	pedidos int, --SACAR DE ACA
+	existencias int, 
+	pedidos int, 
 	prov_id int foreign key references lk_proveedor(prov_id),
 	categ_id int foreign key references lk_categoria(categ_id)
 )
 
+create table lk_ano_presupuesto (
+	ano_id int not null primary key identity(1,1),
+	ano int
+)
+
+create table lk_pais_presupuesto (
+	pais_id int not null primary key identity(1,1),
+	pais varchar(255)
+)
+
 create table ft_presupuesto (
 	pres_id int not null primary key identity(1,1),
-	mes_id int foreign key references lk_mes(mes_id),
-	geograph_id int foreign key references lk_geograph(geograph_id)
+	sourceid int,
+	valor_total int,
+	categ_id int foreign key references lk_categoria(categ_id),
+	ano_id int foreign key references lk_ano_presupuesto(ano_id),
+	pais_id int foreign key references lk_pais_presupuesto(pais_id)
 )
 
 create table lk_presupuesto_mes (
 	pres_categ_mes_id int not null primary key identity(1,1),
+	monto int,
+	mes varchar(25),
 	pres_id int foreign key references ft_presupuesto(pres_id),
-	monto decimal(15,2),
-	categ_id int foreign key references lk_categoria(categ_id),
-	mes_id int foreign key references lk_mes(mes_id)
 )
+
+
 
 create table lk_empleados (
 	empleado_id int not null primary key identity(1,1),
@@ -92,6 +107,7 @@ create table lk_empleados (
 
 create table ft_ventas (
 	venta_id int not null primary key identity(1,1),
+	source_id int,
 	geograph_id int foreign key references lk_geograph(geograph_id),
 	cliente_id int foreign key references lk_cliente(cliente_id),
 	venta_dia int foreign key references lk_dia(dia_id),

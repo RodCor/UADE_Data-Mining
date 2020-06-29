@@ -4,9 +4,6 @@
     <Configuration>
       <Name>Development</Name>
       <Options>
-        <UseWinAuth>false</UseWinAuth>
-        <WinAuthUserName />
-        <WinAuthDomain />
         <Run64BitRuntime>false</Run64BitRuntime>
         <UserIDs />
         <UserPasswords />
