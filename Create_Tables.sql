@@ -108,6 +108,7 @@ create table lk_empleados (
 create table ft_ventas (
 	venta_id int not null primary key identity(1,1),
 	source_id int,
+	Tiempo_Entrega_Dias int,
 	geograph_id int foreign key references lk_geograph(geograph_id),
 	cliente_id int foreign key references lk_cliente(cliente_id),
 	venta_dia int foreign key references lk_dia(dia_id),
