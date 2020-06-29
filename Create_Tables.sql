@@ -83,7 +83,7 @@ create table ft_presupuesto (
 create table lk_presupuesto_mes (
 	pres_categ_mes_id int not null primary key identity(1,1),
 	monto int,
-	mes varchar(25),
+	mes_id int foreign key references lk_mes(mes_id),
 	pres_id int foreign key references ft_presupuesto(pres_id),
 )
 
